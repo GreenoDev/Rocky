@@ -1385,6 +1385,12 @@ u16 gf_p_rand(const u16 denominator)
  */
 int LONG_CALL ServerDoTypeCalcMod(void *bw UNUSED, struct BattleStruct *sp, int move_no, int move_type, int attack_client, int defence_client, int damage, u32 *flag)
 {
+    #ifdef DEBUG_DAMAGE_CALC
+    u8 buf[128];
+    sprintf(buf, "In ServerDoTypeCalcMod, damage is %d\n", damage);
+    debugsyscall(buf);
+    #endif
+
     int i;
     int modifier;
     u32 base_power;
@@ -1458,6 +1464,7 @@ int LONG_CALL ServerDoTypeCalcMod(void *bw UNUSED, struct BattleStruct *sp, int 
     else
     {
         i = 0;
+        // TODO: Roost
         while (TypeEffectivenessTable[i][0] != 0xff)
         {
             if (TypeEffectivenessTable[i][0] == 0xfe) // handle foresight
@@ -3261,3 +3268,32 @@ BOOL LONG_CALL ov12_02251A28(struct BattleSystem *bsys, struct BattleStruct *ctx
 
     return ret;
 }
+
+
+BOOL WeatherIsActive(struct BattleSystem *battle, struct BattleStruct *server, u32 weatherMask) {
+    return (server->field_condition & weatherMask)
+            && (CheckSideAbility(battle, server, CHECK_ABILITY_ALL_HP, 0, ABILITY_CLOUD_NINE) == 0)
+            && (CheckSideAbility(battle, server, CHECK_ABILITY_ALL_HP, 0, ABILITY_AIR_LOCK) == 0);
+}
+
+BOOL AllyHasAbility(struct BattleStruct *server, int battler, u16 ability)
+{
+    // Ally is the battler which has the same parity as ours
+    // Just get the battler which has the input ability, XOR it with the requesting battler,
+    // and check that bit 0 of the result is 0
+    //
+    //  XOR | 0 | 1 | 2 | 3 |
+    //  ----|---|---|---|---|
+    //    0 | X | 1 | 0 | 1 |
+    //    1 | 1 | X | 1 | 0 |
+    //    2 | 0 | 1 | X | 1 |
+    //    3 | 1 | 0 | 1 | X |
+    return server->battlemon[BATTLER_ALLY(battler)].ability == ability;
+}
+
+// this needs to be refactored
+u16 Calc_StatWithStages(u16 stat, u8 stage)
+{
+    return stat * StatBoostModifiers[stage][0] / StatBoostModifiers[stage][1];
+}
+
