@@ -5,18 +5,18 @@
 
 void ServerFieldConditionCheck(void *bw, struct BattleStruct *sp)
 {
-    u32 ovyId, offset;
+  u32 ovyId, offset;
 
-    void (*internalFunc)(void *bw, struct BattleStruct *sp);
+  void (*internalFunc)(void *bw, struct BattleStruct *sp);
 
-    UnloadOverlayByID(6); // unload overlay 6 so this can be loaded
+  UnloadOverlayByID(6); // unload overlay 6 so this can be loaded
 
-    ovyId = OVERLAY_SERVERFIELDCONDITIONCHECK;
-    offset = 0x023C0400 | 1;
-    HandleLoadOverlay(ovyId, 2);
-    internalFunc = (void (*)(void *bw, struct BattleStruct *sp))(offset);
-    internalFunc(bw, sp);
-    UnloadOverlayByID(ovyId);
+  ovyId = OVERLAY_SERVERFIELDCONDITIONCHECK;
+  offset = 0x023C0400 | 1;
+  HandleLoadOverlay(ovyId, 2);
+  internalFunc = (void (*)(void *bw, struct BattleStruct *sp))(offset);
+  internalFunc(bw, sp);
+  UnloadOverlayByID(ovyId);
 
-    HandleLoadOverlay(6, 2); // reload 6 so things are okay
+  HandleLoadOverlay(6, 2); // reload 6 so things are okay
 }

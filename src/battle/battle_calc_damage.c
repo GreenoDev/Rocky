@@ -16,7 +16,7 @@
 
 // function declarations
 int CalcBaseDamage(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
-                   u32 field_cond, u16 pow, u8 type, u8 attacker, u8 defender, u8 critical);
+           u32 field_cond, u16 pow, u8 type, u8 attacker, u8 defender, u8 critical);
 //u16 GetBattleMonItem(struct BattleStruct *sp, int client_no);
 void CalcDamageOverall(void *bw, struct BattleStruct *sp);
 int AdjustDamageForRoll(void *bw, struct BattleStruct *sp, int damage);
@@ -26,39 +26,39 @@ int AdjustDamageForRoll(void *bw, struct BattleStruct *sp, int damage);
 
 
 const u8 StatBoostModifiers[][2] = {
-         // numerator, denominator
-        {          10,          40 },
-        {          10,          35 },
-        {          10,          30 },
-        {          10,          25 },
-        {          10,          20 },
-        {          10,          15 },
-        {          10,          10 },
-        {          15,          10 },
-        {          20,          10 },
-        {          25,          10 },
-        {          30,          10 },
-        {          35,          10 },
-        {          40,          10 },
+     // numerator, denominator
+    {          10,          40 },
+    {          10,          35 },
+    {          10,          30 },
+    {          10,          25 },
+    {          10,          20 },
+    {          10,          15 },
+    {          10,          10 },
+    {          15,          10 },
+    {          20,          10 },
+    {          25,          10 },
+    {          30,          10 },
+    {          35,          10 },
+    {          40,          10 },
 };
 
 int CalcBaseDamage(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
-                   u32 field_cond, u16 pow, u8 type UNUSED, u8 attacker, u8 defender, u8 critical)
+           u32 field_cond, u16 pow, u8 type UNUSED, u8 attacker, u8 defender, u8 critical)
 {
-    u32 ovyId, offset;
-    int ret;
-    int (*internalFunc)(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
-                         u32 field_cond, u16 pow, u8 type UNUSED, u8 attacker, u8 defender, u8 critical);
+  u32 ovyId, offset;
+  int ret;
+  int (*internalFunc)(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
+             u32 field_cond, u16 pow, u8 type UNUSED, u8 attacker, u8 defender, u8 critical);
 
-    ovyId = OVERLAY_CALCBASEDAMAGE;
-    offset = 0x023C0400 | 1;
-    HandleLoadOverlay(ovyId, 2);
-    internalFunc = (int (*)(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
-                            u32 field_cond, u16 pow, u8 type UNUSED, u8 attacker, u8 defender, u8 critical))(offset);
-    ret = internalFunc(bw, sp, moveno, side_cond, field_cond, pow, type, attacker, defender, critical);
-    UnloadOverlayByID(ovyId);
+  ovyId = OVERLAY_CALCBASEDAMAGE;
+  offset = 0x023C0400 | 1;
+  HandleLoadOverlay(ovyId, 2);
+  internalFunc = (int (*)(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
+              u32 field_cond, u16 pow, u8 type UNUSED, u8 attacker, u8 defender, u8 critical))(offset);
+  ret = internalFunc(bw, sp, moveno, side_cond, field_cond, pow, type, attacker, defender, critical);
+  UnloadOverlayByID(ovyId);
 
-    return ret;
+  return ret;
 }
 
 /**
@@ -70,23 +70,23 @@ int CalcBaseDamage(void *bw, struct BattleStruct *sp, int moveno, u32 side_cond,
  */
 u16 LONG_CALL GetBattleMonItem(struct BattleStruct *sp, int client_no)
 {
-    if ((GetBattlerAbility(sp, client_no) == ABILITY_KLUTZ))
-    {
-        return 0;
-    }
-    if (sp->battlemon[client_no].moveeffect.embargoFlag)
-    {
-        return 0;
-    }
-    // handle unnerve:  if an opposing pokemon has unnerve and the item it is holding is a berry, then no item will be read.
-    if (((GetBattlerAbility(sp, BATTLER_OPPONENT(client_no)) == ABILITY_UNNERVE && sp->battlemon[BATTLER_OPPONENT(client_no)].hp != 0)
-      || (GetBattlerAbility(sp, BATTLER_ACROSS(client_no)) == ABILITY_UNNERVE && sp->battlemon[BATTLER_ACROSS(client_no)].hp != 0))
-     && (IS_ITEM_BERRY(sp->battlemon[client_no].item)))
-    {
-        return 0;
-    }
+  if ((GetBattlerAbility(sp, client_no) == ABILITY_KLUTZ))
+  {
+    return 0;
+  }
+  if (sp->battlemon[client_no].moveeffect.embargoFlag)
+  {
+    return 0;
+  }
+  // handle unnerve:  if an opposing pokemon has unnerve and the item it is holding is a berry, then no item will be read.
+  if (((GetBattlerAbility(sp, BATTLER_OPPONENT(client_no)) == ABILITY_UNNERVE && sp->battlemon[BATTLER_OPPONENT(client_no)].hp != 0)
+    || (GetBattlerAbility(sp, BATTLER_ACROSS(client_no)) == ABILITY_UNNERVE && sp->battlemon[BATTLER_ACROSS(client_no)].hp != 0))
+   && (IS_ITEM_BERRY(sp->battlemon[client_no].item)))
+  {
+    return 0;
+  }
 
-    return sp->battlemon[client_no].item;
+  return sp->battlemon[client_no].item;
 }
 
 
@@ -99,54 +99,54 @@ u16 LONG_CALL GetBattleMonItem(struct BattleStruct *sp, int client_no)
 
 void CalcDamageOverall(void *bw, struct BattleStruct *sp)
 {
-    int type;
+  int type;
 
-    type = GetAdjustedMoveType(sp, sp->attack_client, sp->current_move_index);
+  type = GetAdjustedMoveType(sp, sp->attack_client, sp->current_move_index);
 
-    sp->damage = CalcBaseDamage(bw,
-                                sp,
-                                sp->current_move_index,
-                                sp->side_condition[IsClientEnemy(bw, sp->defence_client)],
-                                sp->field_condition,
-                                sp->damage_power,
-                                type,
-                                sp->attack_client, sp->defence_client, sp->critical);
+  sp->damage = CalcBaseDamage(bw,
+                sp,
+                sp->current_move_index,
+                sp->side_condition[IsClientEnemy(bw, sp->defence_client)],
+                sp->field_condition,
+                sp->damage_power,
+                type,
+                sp->attack_client, sp->defence_client, sp->critical);
 
-    //sp->damage *= sp->critical;
-    if (sp->critical > 1) // update critical hit mechanics
+  //sp->damage *= sp->critical;
+  if (sp->critical > 1) // update critical hit mechanics
+  {
+    for (type = sp->critical; type > 1; type--) // for every critical multiplier above 1, tack on 1.5x multiplier
     {
-        for (type = sp->critical; type > 1; type--) // for every critical multiplier above 1, tack on 1.5x multiplier
-        {
-            sp->damage = sp->damage * 150 / 100;
-        }
+      sp->damage = sp->damage * 150 / 100;
+    }
+  }
+
+  if (HeldItemHoldEffectGet(sp, sp->attack_client) == HOLD_EFFECT_HP_DRAIN_ON_ATK)
+  {
+    sp->damage = sp->damage * (100 + HeldItemAtkGet(sp, sp->attack_client, ATK_CHECK_NORMAL)) / 100;
+  }
+
+  if (HeldItemHoldEffectGet(sp, sp->attack_client) == HOLD_EFFECT_BOOST_REPEATED)
+  {
+    sp->damage = sp->damage * (10 + sp->battlemon[sp->attack_client].moveeffect.metronomeTurns) / 10;
+  }
+
+  if (sp->battlemon[sp->attack_client].moveeffect.meFirstFlag)
+  {
+    if (sp->me_first_total_turns == sp->battlemon[sp->attack_client].moveeffect.meFirstCount)
+    {
+      sp->battlemon[sp->attack_client].moveeffect.meFirstCount--;
     }
 
-    if (HeldItemHoldEffectGet(sp, sp->attack_client) == HOLD_EFFECT_HP_DRAIN_ON_ATK)
+    if ((sp->me_first_total_turns - sp->battlemon[sp->attack_client].moveeffect.meFirstCount) < 2)
     {
-        sp->damage = sp->damage * (100 + HeldItemAtkGet(sp, sp->attack_client, ATK_CHECK_NORMAL)) / 100;
+      sp->damage = sp->damage * 15 / 10;
     }
-
-    if (HeldItemHoldEffectGet(sp, sp->attack_client) == HOLD_EFFECT_BOOST_REPEATED)
+    else
     {
-        sp->damage = sp->damage * (10 + sp->battlemon[sp->attack_client].moveeffect.metronomeTurns) / 10;
+      sp->battlemon[sp->attack_client].moveeffect.meFirstFlag = 0;
     }
-
-    if (sp->battlemon[sp->attack_client].moveeffect.meFirstFlag)
-    {
-        if (sp->me_first_total_turns == sp->battlemon[sp->attack_client].moveeffect.meFirstCount)
-        {
-            sp->battlemon[sp->attack_client].moveeffect.meFirstCount--;
-        }
-
-        if ((sp->me_first_total_turns - sp->battlemon[sp->attack_client].moveeffect.meFirstCount) < 2)
-        {
-            sp->damage = sp->damage * 15 / 10;
-        }
-        else
-        {
-            sp->battlemon[sp->attack_client].moveeffect.meFirstFlag = 0;
-        }
-    }
+  }
 }
 
 
@@ -161,11 +161,11 @@ void CalcDamageOverall(void *bw, struct BattleStruct *sp)
 int AdjustDamageForRoll(void *bw, struct BattleStruct *sp UNUSED, int damage)
 {
 #ifdef DEBUG_ADJUSTED_DAMAGE
-    u8 buf[128];
-    s32 predamage = damage;
+  u8 buf[128];
+  s32 predamage = damage;
 #endif // DEBUG_ADJUSTED_DAMAGE
 	if (damage)
-    {
+  {
 		damage *= (100 - (BattleRand(bw) % 16)); // 85-100% damage roll
 		damage /= 100;
 		if (damage == 0)
@@ -173,8 +173,8 @@ int AdjustDamageForRoll(void *bw, struct BattleStruct *sp UNUSED, int damage)
 	}
 
 #ifdef DEBUG_ADJUSTED_DAMAGE
-    sprintf(buf, "Unrolled damage: %d -- Battler %d hit battler %d for %d damage.\n", predamage, sp->attack_client, sp->defence_client, damage+1);
-    debugsyscall(buf);
+  sprintf(buf, "Unrolled damage: %d -- Battler %d hit battler %d for %d damage.\n", predamage, sp->attack_client, sp->defence_client, damage+1);
+  debugsyscall(buf);
 #endif // DEBUG_ADJUSTED_DAMAGE
 
 	return damage;

@@ -8,20 +8,20 @@
 #define SCRIPT_NEW_CMD_MAX          256
 
 BOOL Script_RunNewCmd(SCRIPTCONTEXT *ctx) {
-    u8 sw = ScriptReadByte(ctx);
-    u16 UNUSED arg0 = ScriptReadHalfword(ctx);
+  u8 sw = ScriptReadByte(ctx);
+  u16 UNUSED arg0 = ScriptReadHalfword(ctx);
 
-    switch (sw) {
-        case SCRIPT_NEW_CMD_REPEL_USE:;
+  switch (sw) {
+    case SCRIPT_NEW_CMD_REPEL_USE:;
 #ifdef IMPLEMENT_REUSABLE_REPELS
-            u16 most_recent_repel = Repel_GetMostRecent();
-            SetScriptVar(arg0, most_recent_repel);
-            Repel_Use(most_recent_repel, HEAPID_MAIN_HEAP);
+      u16 most_recent_repel = Repel_GetMostRecent();
+      SetScriptVar(arg0, most_recent_repel);
+      Repel_Use(most_recent_repel, HEAPID_MAIN_HEAP);
 #endif
-            break;
+      break;
 
-        default: break;
-    }
+    default: break;
+  }
 
-    return FALSE;
+  return FALSE;
 }
