@@ -594,7 +594,7 @@ u8 LONG_CALL CalcSpeed(void *bw, struct BattleStruct *sp, int client1, int clien
 {
   u8 ret = 0;
   u32 speed1, speed2;
-  u16 move1 = 0, move2 =   0;
+  u16 move1 = 0, move2 = 0;
   u8 hold_effect1;
   u8 hold_atk1;
   u8 hold_effect2;

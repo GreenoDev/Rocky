@@ -213,11 +213,11 @@ BOOL BattleFormChangeCheck(void *bw, struct BattleStruct *sp, int *seq_no)
           work = 0;
           SetMonData(pp, MON_DATA_FORM, &work);
           PokeParaGiratinaFormChange(pp);
-          sp->battlemon[sp->client_work].attack =  GetMonData(pp, MON_DATA_ATTACK,          0);
+          sp->battlemon[sp->client_work].attack = GetMonData(pp, MON_DATA_ATTACK,          0);
           sp->battlemon[sp->client_work].defense = GetMonData(pp, MON_DATA_DEFENSE,         0);
-          sp->battlemon[sp->client_work].speed =   GetMonData(pp, MON_DATA_SPEED,           0);
-          sp->battlemon[sp->client_work].spatk =   GetMonData(pp, MON_DATA_SPECIAL_ATTACK,  0);
-          sp->battlemon[sp->client_work].spdef =   GetMonData(pp, MON_DATA_SPECIAL_DEFENSE, 0);
+          sp->battlemon[sp->client_work].speed = GetMonData(pp, MON_DATA_SPEED,           0);
+          sp->battlemon[sp->client_work].spatk = GetMonData(pp, MON_DATA_SPECIAL_ATTACK,  0);
+          sp->battlemon[sp->client_work].spdef = GetMonData(pp, MON_DATA_SPECIAL_DEFENSE, 0);
           sp->battlemon[sp->client_work].ability = GetMonData(pp, MON_DATA_ABILITY,         0);
           sp->battlemon[sp->client_work].form_no = 0;
           sp->server_status_flag2 |= SERVER_STATUS_FLAG2_FORM_CHANGE;

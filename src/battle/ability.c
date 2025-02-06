@@ -610,7 +610,7 @@ BOOL SynchroniseAbilityCheck(void *bw, struct BattleStruct *sp, int server_seq_n
   }
 
   if(ret == TRUE) {
-    seq_no =  SUB_SEQ_APPLY_ATTRACT;
+    seq_no = SUB_SEQ_APPLY_ATTRACT;
     sp->addeffect_type = ADD_STATUS_SOUBIITEM;
     LoadBattleSubSeqScript(sp, ARC_BATTLE_SUB_SEQ, seq_no);
     sp->next_server_seq_no = server_seq_no;

@@ -61,8 +61,8 @@ const ButtonTBL SkillMenuTouchData[] =
   [TOUCH_DATA_MOVE_2] = {3 * 8, 0xA * 8, 0x10 * 8, 255},
   [TOUCH_DATA_MOVE_3] = {0xB * 8, 0x12 * 8, 0 * 8, 0x10 * 8},
   [TOUCH_DATA_MOVE_4] = {0xB * 8, 0x12 * 8, 0x10 * 8, 255},
-  [TOUCH_DATA_MEGA  ] = {0x13 * 8, 0x18 * 8, 0x16 * 8, 0x1F * 8},
-  [TOUCH_DATA_TOTAL ] = {RECT_HIT_END, 0, 0, 0},
+  [TOUCH_DATA_MEGA] = {0x13 * 8, 0x18 * 8, 0x16 * 8, 0x1F * 8},
+  [TOUCH_DATA_TOTAL] = {RECT_HIT_END, 0, 0, 0},
 };
 
 const ButtonTBL SkillMenuTouchDataNoMega[] =
@@ -73,7 +73,7 @@ const ButtonTBL SkillMenuTouchDataNoMega[] =
   [TOUCH_DATA_MOVE_2] = {3 * 8, 0xA * 8, 0x10 * 8, 255},
   [TOUCH_DATA_MOVE_3] = {0xB * 8, 0x12 * 8, 0 * 8, 0x10 * 8},
   [TOUCH_DATA_MOVE_4] = {0xB * 8, 0x12 * 8, 0x10 * 8, 255},
-  [TOUCH_DATA_MEGA  ] = {RECT_HIT_END, 0, 0, 0},
+  [TOUCH_DATA_MEGA] = {RECT_HIT_END, 0, 0, 0},
 };
 
 const int SkillMenuTouchRet[NELEMS(SkillMenuTouchData) - 1] = {
@@ -82,7 +82,7 @@ const int SkillMenuTouchRet[NELEMS(SkillMenuTouchData) - 1] = {
   [TOUCH_DATA_MOVE_2] = 2,
   [TOUCH_DATA_MOVE_3] = 3,
   [TOUCH_DATA_MOVE_4] = 4,
-  [TOUCH_DATA_MEGA  ] = 5,
+  [TOUCH_DATA_MEGA] = 5,
 };
 
 ALIGN4 const u8 SkillMenuPaletteNo[NELEMS(SkillMenuTouchData) - 1] = {
@@ -91,7 +91,7 @@ ALIGN4 const u8 SkillMenuPaletteNo[NELEMS(SkillMenuTouchData) - 1] = {
   [TOUCH_DATA_MOVE_2] = 9,
   [TOUCH_DATA_MOVE_3] = 10,
   [TOUCH_DATA_MOVE_4] = 11,
-  [TOUCH_DATA_MEGA  ] = 4,
+  [TOUCH_DATA_MEGA] = 4,
 };
 
 const u8 DPadSelectTouchDataIndex[] = { // dpad touch data index
