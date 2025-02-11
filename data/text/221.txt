@@ -541,7 +541,7 @@ One of a variety of Mega Stones.\nHave Charizard hold it, and this stone\nwill e
 One of a variety of Mega Stones.\nHave Blastoise hold it, and this stone\nwill enable it to Mega Evolve in battle.
 One of a variety of Mega Stones.\nHave Beedrill hold it, and this stone\nwill enable it to Mega Evolve in battle.
 One of a variety of Mega Stones.\nHave Pidgeot hold it, and this stone\nwill enable it to Mega Evolve in battle.
-One of a variety of Mega Stones.\nHave Alakazam hold it, and this stone\nwill enable it to Mega Evolve in battle.
+Mega Evolves Alakazam when held.\nAdditionally provides 10% damage ↑\nwhen it's attacks are super-effective.
 One of a variety of Mega Stones.\nHave Slowbro hold it, and this stone\nwill enable it to Mega Evolve in battle.
 One of a variety of Mega Stones.\nHave Gengar hold it, and this stone\nwill enable it to Mega Evolve in battle.
 One of a variety of Mega Stones.\nHave Kangaskhan hold it, and this stone\nwill enable it to Mega Evolve in battle.
